@@ -1,0 +1,67 @@
+<style type="text/css">
+  #slideshow {
+    position: relative;
+    width: 800px;
+    height: 600px;
+
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+
+  }
+
+  #slideshow img {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    z-index: 8;
+    opacity: 0.0;
+  }
+
+  #slideshow img.active {
+    z-index: 10;
+    opacity: 1.0;
+  }
+
+  #slideshow img.last-active {
+    z-index: 9;
+  }
+</style>
+
+<script>
+    function slideSwitch() {
+        var $active = $('#slideshow IMG.active');
+
+        if ($active.length == 0) $active = $('#slideshow IMG:last');
+
+        var $next = $active.next().length ? $active.next()
+            : $('#slideshow IMG:first');
+
+        $active.addClass('last-active');
+
+        $next.css({opacity: 0.0})
+            .addClass('active')
+            .animate({opacity: 1.0}, 1000, function () {
+                $active.removeClass('active last-active');
+            });
+    }
+
+    $(function () {
+        setInterval("slideSwitch()", 5000);
+    });
+</script>
+
+<div id="slideshow">
+  <% if @image_urls.size > 0 %>
+      <% @image_urls.each_with_index do |image_url, i| %>
+          <% if i == 0 %>
+              <img src="<%= image_url %>" alt="" class="active"/>
+          <% else %>
+              <img src="<%= image_url %>" alt=""/>
+          <% end %>
+      <% end %>
+  <% end %>
+</div>
