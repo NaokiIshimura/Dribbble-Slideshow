@@ -14,7 +14,7 @@ https://dri-bbble-slideshow.herokuapp.com/
 
 ---
 
-# Prepare
+# Prep
 
 ```
 $ export DRIBBBLE_URL='https://api.dribbble.com/v1/shots?sort=recent'
